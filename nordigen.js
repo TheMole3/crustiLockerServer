@@ -100,7 +100,7 @@ class nordigen
             })
             .catch(async (err) => {
                 // If the token is expired
-                if(err.response.status == 401) {
+                if(err.response.status == 401 || err.response.status == 400) {
                     this.getTokens()
                     .then((tokens) => {
                         resolve(tokens.access);
