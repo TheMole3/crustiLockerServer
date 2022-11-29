@@ -39,7 +39,7 @@ app.get("/transactions", verifyToken, (req, res) => {
         res.send(transactions);
     })
     .catch(err => {
-        res.send(err).sendStatus(err.toJSON().status);
+        res.status(err.toJSON().status).send(err);
     })
 })
 
@@ -48,6 +48,6 @@ app.get("/sendRequisition", verifyToken, (req, res) => {
     .then(data => {
         res.send(data.link);
     }).catch(err => {
-        res.send(err).sendStatus(err.toJSON().status);
+        res.status(err.toJSON().status).send(err);
     })
 })
