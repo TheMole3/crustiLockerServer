@@ -5,6 +5,8 @@ const zlib = require('zlib')
 let pushbullet = require("./pushbullet");
 pushbullet = new pushbullet();
 
+const price = require('./price.json')
+
 class nordigen 
 {
     constructor(secret_id, secret_key) 
@@ -171,7 +173,12 @@ class nordigen
             .then(async (response) => {
                 zlib.gunzip(response.data, async function (_err, output) {
                     output = JSON.parse(output.toString())
-                    resolve(output.transactions.booked.slice(0, 20));
+                    let sliced = output.transactions.booked.slice(0, 20);
+                    let filtred = sliced.filter((i,n) => {
+                        return (n["transactionAmount"]["amount"] == price.price) && (n["remittanceInformationStructured"] == price.match)
+                    });
+
+                    resolve(filtred);
                 })
             })
             .catch(async (err) => {
