@@ -175,7 +175,7 @@ class nordigen
                     output = JSON.parse(output.toString())
                     let sliced = output.transactions.booked.slice(0, 20);
                     let filtred = sliced.filter((i,n) => {
-                        return (n["transactionAmount"]["amount"] == price.price) && (n["remittanceInformationStructured"] == price.match)
+                        return (i["transactionAmount"]["amount"] == price.price) && (i["remittanceInformationStructured"] == price.match)
                     });
 
                     resolve(filtred);
